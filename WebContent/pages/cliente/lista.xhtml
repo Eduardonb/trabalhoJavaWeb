@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/templates/sistema.xhtml"
+>
+	<ui:define name="conteudo">
+		<p:breadCrumb style="font-size: 12px;">
+		    <p:menuitem value="Clientes" url="#" />
+		    <p:menuitem value="Inserir" url="#" />
+		</p:breadCrumb>
+		<p:commandButton value="Novo" actionListener="#{MBListaCliente.preparaNovoCliente}" oncomplete="PF('dlgNovoCliente').show();"/>
+		<h:form>
+			<p:dataTable emptyMessage="Nenhum cliente encontrado"
+						 value="#{MBListaCliente.clientes}"
+						 var="cliente"
+						 paginator="true"
+						 rows="15"
+			>
+			<f:facet name="header">Clientes</f:facet>
+				<p:column headerText="Id" sortBy="#{cliente.id}" filterBy="#{cliente.id}">
+					<h:outputText value="#{cliente.id}" />
+				</p:column>
+				<p:column headerText="Nome" sortBy="#{cliente.nome}" filterBy="#{cliente.nome}">
+					<h:outputText value="#{cliente.nome}" />
+				</p:column>
+				<p:column headerText="Cpf" sortBy="#{cliente.cpf}" filterBy="#{cliente.cpf}">
+					<h:outputText value="#{cliente.cpf}" />
+				</p:column>
+				
+			</p:dataTable>
+		</h:form>
+		<h:form>
+			<p:dialog widgetVar="dlgNovoCliente"
+					  closable="false"
+					  draggable="false"
+					  resizable="false"
+					  modal="true" appendTo="@(body)"
+					  height="150"
+					  width="350"
+					  header="Novo Cliente"
+			>
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Nome: " />
+					<p:inputText size="30" maxlength="255" value="#{MBListaCliente.cliente.nome}" />
+					<p:outputLabel value="CPF: " />
+					<p:inputText size="30" maxlength="255" value="#{MBListaCliente.cliente.cpf}" />
+					<p:outputLabel value="Telefone: " />
+					<p:inputText size="30" maxlength="255" value="#{MBListaCliente.cliente.telefone}" />
+					
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar" actionListener="#{MBListaCliente.novoCliente}" />
+					<p:commandButton value="Cancelar" onclick="PF('dlgNovoCliente').hide();"/>
+				</h:panelGrid>
+			</p:dialog>
+   		</h:form>
+	</ui:define>	
+
+</ui:composition>
