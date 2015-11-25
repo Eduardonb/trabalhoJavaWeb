@@ -12,7 +12,7 @@
 		    <p:menuitem value="Clientes" url="#" />
 		    <p:menuitem value="Inserir" url="#" />
 		</p:breadCrumb>
-		<p:commandButton value="Novo" actionListener="#{MBListaCliente.preparaNovoCliente}" oncomplete="PF('dlgNovoCliente').show();"/>
+		<p:button outcome="form" value="Novo" ></p:button>
 		<h:form>
 			<p:dataTable emptyMessage="Nenhum cliente encontrado"
 						 value="#{MBListaCliente.clientes}"
@@ -21,43 +21,27 @@
 						 rows="15"
 			>
 			<f:facet name="header">Clientes</f:facet>
-				<p:column headerText="Id" sortBy="#{cliente.id}" filterBy="#{cliente.id}">
-					<h:outputText value="#{cliente.id}" />
-				</p:column>
 				<p:column headerText="Nome" sortBy="#{cliente.nome}" filterBy="#{cliente.nome}">
 					<h:outputText value="#{cliente.nome}" />
 				</p:column>
 				<p:column headerText="Cpf" sortBy="#{cliente.cpf}" filterBy="#{cliente.cpf}">
 					<h:outputText value="#{cliente.cpf}" />
 				</p:column>
-				
+				<p:column headerText="Telefone" sortBy="#{cliente.telefone}" filterBy="#{cliente.telefone}">
+					<h:outputText value="#{cliente.telefone}" />
+				</p:column>
+				<p:column>
+					<p:button outcome="editar" icon="ui-icon-star" title="Editar">
+					    <f:param name="id" value="#{cliente.id}" />
+					</p:button>
+					<p:button outcome="excluir" icon="ui-icon-star" title="Excluir">
+					    <f:param name="id" value="#{cliente.id}" />
+					</p:button>
+					<p:button outcome="servico/lista" icon="ui-icon-star" title="Servicos">
+					    <f:param name="id" value="#{cliente.id}" />
+					</p:button>
+				</p:column>
 			</p:dataTable>
 		</h:form>
-		<h:form>
-			<p:dialog widgetVar="dlgNovoCliente"
-					  closable="false"
-					  draggable="false"
-					  resizable="false"
-					  modal="true" appendTo="@(body)"
-					  height="150"
-					  width="350"
-					  header="Novo Cliente"
-			>
-				<h:panelGrid columns="2">
-					<p:outputLabel value="Nome: " />
-					<p:inputText size="30" maxlength="255" value="#{MBListaCliente.cliente.nome}" />
-					<p:outputLabel value="CPF: " />
-					<p:inputText size="30" maxlength="255" value="#{MBListaCliente.cliente.cpf}" />
-					<p:outputLabel value="Telefone: " />
-					<p:inputText size="30" maxlength="255" value="#{MBListaCliente.cliente.telefone}" />
-					
-				</h:panelGrid>
-				<h:panelGrid columns="2">
-					<p:commandButton value="Salvar" actionListener="#{MBListaCliente.novoCliente}" />
-					<p:commandButton value="Cancelar" onclick="PF('dlgNovoCliente').hide();"/>
-				</h:panelGrid>
-			</p:dialog>
-   		</h:form>
 	</ui:define>	
-
 </ui:composition>

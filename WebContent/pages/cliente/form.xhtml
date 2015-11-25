@@ -8,10 +8,24 @@
 	template="/templates/sistema.xhtml"
 >
 	<ui:define name="conteudo">
-		<p:breadCrumb style="font-size: 12px;">
-		    <p:menuitem value="Clientes" url="#" />
-		    <p:menuitem value="Inserir" url="#" />
-		</p:breadCrumb>
+		<h:form>
+			<p:breadCrumb style="font-size: 12px;">
+			    <p:menuitem value="Clientes" url="#" />
+			    <p:menuitem value="Inserir" url="#" />
+			</p:breadCrumb>
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Nome: " />
+				<p:inputText id="nome" size="30" maxlength="255" value="#{MBNovoCliente.cliente.nome}" />
+				<p:outputLabel value="CPF: " />
+				<p:inputText id="cpf" size="30" maxlength="255" value="#{MBNovoCliente.cliente.cpf}" />
+				<p:outputLabel value="Telefone: " />
+				<p:inputText id="telefone" size="30" maxlength="255" value="#{MBNovoCliente.cliente.telefone}" />
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" action="#{MBNovoCliente.novoCliente}" />
+				<p:button outcome="lista" value="Voltar para a listagem"></p:button>
+			</h:panelGrid>
+		</h:form>
 	</ui:define>	
 
 </ui:composition>

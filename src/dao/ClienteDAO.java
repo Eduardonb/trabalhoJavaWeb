@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,8 +10,10 @@ import java.util.ArrayList;
 import domain.Cliente;
 import factory.Conexao;
 
-public class ClienteDAO {
+public class ClienteDAO implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	public void salvar(Cliente cliente) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO cliente ");
@@ -41,10 +44,10 @@ public class ClienteDAO {
 	public void atualizar(Cliente cliente) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE cliente ");
-		sql.append("SET nome = ? ");
-		sql.append("SET cpf = ? ");
-		sql.append("SET telefone = ? ");
-		sql.append("WHERE id = ? ");
+		sql.append("SET nome = ?, ");
+		sql.append("cpf = ?, ");
+		sql.append("telefone = ? ");
+		sql.append("WHERE id = ?; ");
 		
 		Connection conexao = Conexao.conectar();
 		PreparedStatement comando = conexao.prepareStatement(sql.toString());

@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,8 +11,10 @@ import domain.PecaCMB;
 import domain.Servico;
 import factory.Conexao;
 
-public class PecaCMBDAO {
+public class PecaCMBDAO implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	private ServicoDAO servicoDAO = new ServicoDAO();
 	
 	public void salvar(PecaCMB pecaCMB, Servico servico) throws SQLException {

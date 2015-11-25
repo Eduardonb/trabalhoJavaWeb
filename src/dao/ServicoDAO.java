@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,8 +11,10 @@ import domain.Cliente;
 import domain.Servico;
 import factory.Conexao;
 
-public class ServicoDAO {
+public class ServicoDAO implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	private ClienteDAO clienteDAO = new ClienteDAO();
 	
 	public void salvar(Servico servico, Cliente cliente) throws SQLException {
@@ -88,12 +91,15 @@ public class ServicoDAO {
 	
 	public ArrayList<Servico> buscarTodosServicosDeUmCliente(Cliente cliente) throws SQLException {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT id, data, cliente_id, pago, valor ");
+		sql.append("SELECT id, ");
+		sql.append("cliente_id, pago, valor, ");
+		sql.append("CASE WHEN data !='0000-00-00' THEN data ELSE NULL END as data ");
 		sql.append("FROM servico ");
 		sql.append("WHERE cliente_id = ? ");
 		
 		Connection conexao = Conexao.conectar();
 		PreparedStatement comando = conexao.prepareStatement(sql.toString());
+		comando.setInt(1, cliente.getId());
 		
 		ResultSet resultado = comando.executeQuery();
 		

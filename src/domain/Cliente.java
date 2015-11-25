@@ -1,5 +1,7 @@
 package domain;
 
+import java.io.Serializable;
+
 public class Cliente {
 	
 	private int id;
